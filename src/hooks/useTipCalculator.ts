@@ -5,8 +5,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react'
-import { calculateSplit } from '../lib/calculate'
-import { fromCents } from '../lib/calculate'
+import { calculateSplit, fromCents } from '../lib/calculate'
 import {
   isBillInputAllowed,
   isPeopleInputAllowed,
