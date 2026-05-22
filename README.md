@@ -1,3 +1,5 @@
+![Tipy - Tip Calculator & Bill Splitter](./assets/banner.png)
+
 # Tipy — Tip Calculator & Bill Splitter
 
 A single-screen tip calculator that updates live as you type. Built for the Frontend Assessment (Tip Calculator variant).
