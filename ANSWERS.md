@@ -5,7 +5,7 @@
 **Prerequisites:** Node.js 18+ and npm.
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/shajiaalianwar55/tipy-tip-splitter.git
 cd tipy
 npm install
 npm run dev

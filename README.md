@@ -10,7 +10,7 @@ A single-screen tip calculator that updates live as you type. Built for the Fron
 ## Run locally
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/shajiaalianwar55/tipy-tip-splitter.git
 cd tipy
 npm install
 npm run dev
