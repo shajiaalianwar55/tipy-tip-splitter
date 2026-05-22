@@ -13,20 +13,7 @@ npm run dev
 
 Then open `http://localhost:5173` in a browser.
 
-**Production preview:**
-
-```bash
-npm run build
-npm run preview
-```
-
-**Tests:**
-
-```bash
-npm test
-```
-
-**Deployed URL:** Not deployed for this submission. A one-command deploy would be `npm run build` and upload `dist/` to Vercel or Netlify.
+**Deployed URL:** https://tipy-tip-splitter.vercel.app/
 
 ---
 
@@ -60,28 +47,35 @@ Preset buttons (10% / 15% / 20%) use `min-height: 44px`, wrap on narrow screens,
 
 **Accessibility handled:** Each field uses a visible `<label>`, `aria-invalid` when invalid, and `aria-describedby` pointing at inline error text (`role="alert"`). Preset buttons use `aria-pressed`. Results use `aria-live="polite"` so screen readers hear updated totals. Keyboard users get visible `:focus-visible` rings on inputs and buttons. Enter in a field moves focus to the next control (bill → custom tip → people → reset).
 
-**Accessibility skipped:** Full internationalization (multiple currencies/locales and RTL layouts). The app is USD-only with `en-US` formatting; adding i18n would need `Intl` locale props, translated strings, and RTL-aware layout — out of scope for a timed assessment.
+**Accessibility skipped:** Full internationalization (multiple currencies/locales and RTL layouts). The app is USD-only with `en-US` formatting; adding i18n would need `Intl` locale props, translated strings, and RTL-aware layout (out of scope for a timed assessment).
 
 ---
 
 ## 4. AI usage
 
-| Tool | What I asked | What it gave | What I changed |
-|------|----------------|--------------|----------------|
-| Cursor (Claude) | Implement assessment plan: structure, validation, rounding | Scaffolded React+Vite layout, lib modules, component list | I chose **cent remainder distribution** instead of a naive `round(total/people)` and added Vitest tests for adversarial inputs |
-| Cursor (Claude) | Foolproof parsing for pasted garbage | Regex-based sanitizers | I made `parsePeople` **reject** strings containing `.` instead of stripping the dot (which turned `"2.7"` into `27`) |
-| Cursor (Claude) | Styling / layout | Dark theme CSS with grid | I set desktop results to **40% column width sticky** and mobile **5rem bottom padding** for keyboard clearance |
+| Tool            | What I asked                                                                                          | What it gave                                                                                                        | What I changed                                                                                                                                                  |
+| --------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ChatGPT         | Explain the assessment requirements, including inline validation and keyboard experience expectations | Clarification of requirements such as inline error messages, logical tab order, and mobile usability considerations | I decided how to implement these requirements in the final UI and validation flow                                                                               |
+| ChatGPT         | Discuss frontend stack options and deployment approaches                                              | Comparison of options including Streamlit and React-based approaches                                                | I chose React + Vite because it provided better control over frontend interactions, responsiveness, and accessibility requirements                              |
+| ChatGPT         | Suggest edge cases and testing scenarios                                                              | A comprehensive list of validation, keyboard, mobile, and input-handling test cases                                 | I manually tested and refined the application behaviour based on the suggested scenarios                                                                        |
+| Cursor (Claude) | Generate the initial React application structure and calculator implementation                        | Initial component structure, calculation logic, validation, and styling                                             | I iteratively refined the implementation through multiple prompts and manual review                                                                             |
+| Cursor (Claude) | Improve accessibility and usability features                                                          | Suggested implementation approaches for interaction improvements                                                    | I added a dark/light mode toggle, keyboard-friendly controls, arrow-key support for numeric inputs, and clearer validation messages                             |
+| Cursor (Claude) | Enhance tip input experience                                                                          | Initial custom tip input implementation                                                                             | I added a percentage slider beneath the custom tip field, improved slider behaviour at 0% and 100%, and updated messaging to “Enter or choose a tip percentage” |
+| Cursor (Claude) | Strengthen input validation                                                                           | Validation logic for bill amount, tip percentage, and people count                                                  | I enforced a maximum of two decimal places for bill and tip inputs and ensured people count only accepts whole numbers within defined limits                    |
+| Cursor (Claude) & ChatGPT | Generate project documentation                                                                        | README.md and ANSWERS.md drafts                                                                             | I revised the setup instructions, AI usage disclosures, implementation explanations, and project-specific details                                               |
 
-**Specific change example:** The AI’s first pass stripped punctuation from people input, so `"2.7"` parsed as `27`. I changed `parsePeople` and `isPeopleInputAllowed` to return invalid when the raw string contains `.`, and block `.` / `e` in `onKeyDown` on the people field — so graders pasting `"2.7"` see “Enter a whole number of people” instead of a wrong split.
+
+**Specific change example:** One AI-generated version accepted any number of decimal places for bill and tip inputs. I modified the validation rules to enforce a maximum of two decimal places because the application deals with currency values and displaying long decimal sequences would provide a poor user experience. This also keeps calculations consistent with standard monetary formatting.
 
 ---
 
 ## 5. Honest gap
 
-**Gap:** No deployed public URL yet, and no end-to-end browser tests (Playwright). Unit tests cover math/validation, but not real mobile keyboard overlap in every browser.
+## 5. Honest gap
 
-**With another day:** Deploy to Vercel from `dist/`, add a short Playwright smoke test (type bill → see grand total), and record a 10-second phone viewport clip to verify keyboard + scroll behavior.
+**Gap:** The application currently relies on manual testing for interaction behaviour.
 
+**With another day:** I would add automated end-to-end tests covering keyboard navigation, validation messages, tip selection, reset behaviour, and mobile viewport interactions to reduce the risk of regressions in future changes.
 ---
 
 ## Rounding policy
