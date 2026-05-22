@@ -21,9 +21,9 @@ Then open `http://localhost:5173` in a browser.
 
 **Why React + Vite + TypeScript**
 
-- **React** keeps UI state (bill, tip presets, people, touched/errors) separate from pure calculation logic in `src/lib/`, which makes edge-case testing straightforward.
+- **React** keeps UI state (bill, tip presets, custom tip, people count, and validation state) separate from pure calculation logic in src/lib/, allowing totals and validation messages to update immediately as the user types while keeping the calculation code easy to test.
 - **Vite** gives a fast dev server and a single `npm run dev` command for reviewers on a fresh machine.
-- **TypeScript** catches mistakes in money math (cents vs dollars) at compile time.
+- **TypeScript** adds compile-time type safety across state management and calculation functions, helping catch common bugs before runtime.
 
 **Design decision 1 — Sticky results column (~40% width on desktop)**
 
@@ -31,11 +31,9 @@ On viewports ≥768px, the layout uses a two-column grid: inputs on the left, re
 
 *Affects:* `src/App.css` `.layout` grid and `.results` sticky rules.
 
-**Design decision 2 — Tip presets as large wrap chips**
+**Design decision 2 — Custom tip slider**
 
-Preset buttons (10% / 15% / 20%) use `min-height: 44px`, wrap on narrow screens, and show active state with **border + inset ring** (not color alone). That makes the active preset obvious on touch devices and avoids horizontal scrolling on a 360px-wide phone.
-
-*Affects:* `src/components/TipSelector.tsx` and `.tip-presets` / `.tip-preset--active` in `src/App.css`.
+Custom tip input includes a synchronized slider so users can quickly explore different tip percentages while receiving immediate visual feedback on how the split changes. The slider and input stay synchronized to support both precision entry and quick adjustment.
 
 ---
 
@@ -47,7 +45,7 @@ Preset buttons (10% / 15% / 20%) use `min-height: 44px`, wrap on narrow screens,
 
 **Accessibility handled:** Each field uses a visible `<label>`, `aria-invalid` when invalid, and `aria-describedby` pointing at inline error text (`role="alert"`). Preset buttons use `aria-pressed`. Results use `aria-live="polite"` so screen readers hear updated totals. Keyboard users get visible `:focus-visible` rings on inputs and buttons. Enter in a field moves focus to the next control (bill → custom tip → people → reset).
 
-**Accessibility skipped:** Full internationalization (multiple currencies/locales and RTL layouts). The app is USD-only with `en-US` formatting; adding i18n would need `Intl` locale props, translated strings, and RTL-aware layout (out of scope for a timed assessment).
+**Accessibility skipped:** Even though accessibility features such as labels, keyboard navigation, focus indicators, and ARIA attributes have been implemented, I did not formally test the application with screen-reader software or dedicated accessibility auditing tools due to time constraints.
 
 ---
 
