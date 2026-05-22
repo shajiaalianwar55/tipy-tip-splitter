@@ -58,7 +58,8 @@ export function formatBillAmount(n: number): string {
 }
 
 export function formatTipAmount(n: number): string {
-  return Number.isInteger(n) ? String(n) : String(n)
+  if (Number.isInteger(n)) return String(n)
+  return n.toFixed(2).replace(/\.?0+$/, '')
 }
 
 export function formatPeopleCount(n: number): string {

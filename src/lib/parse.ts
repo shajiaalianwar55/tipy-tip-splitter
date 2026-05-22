@@ -7,12 +7,22 @@ function sanitize(raw: string, allowDecimal: boolean): string {
   return s
 }
 
+const MAX_DECIMAL_PLACES = 2
+
 /** True when the string is a valid partial or complete decimal number while typing. */
-function isValidNumericShape(s: string, allowDecimal: boolean): boolean {
+function isValidNumericShape(
+  s: string,
+  allowDecimal: boolean,
+  maxDecimalPlaces = MAX_DECIMAL_PLACES,
+): boolean {
   if (s === '') return true
   if (!allowDecimal) return /^\d+$/.test(s)
   if (s === '.') return true
-  return /^\d*\.?\d*$/.test(s) && (s.match(/\./g)?.length ?? 0) <= 1
+  const decimalPattern =
+    maxDecimalPlaces > 0
+      ? new RegExp(`^\\d*(\\.\\d{0,${maxDecimalPlaces}})?$`)
+      : /^\d+$/
+  return decimalPattern.test(s) && (s.match(/\./g)?.length ?? 0) <= 1
 }
 
 export function parseBill(raw: string): number | null {

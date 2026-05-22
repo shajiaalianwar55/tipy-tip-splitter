@@ -30,6 +30,12 @@ describe('parseBill', () => {
     expect(isBillInputAllowed('12.3.4')).toBe(false)
     expect(isBillInputAllowed('abc')).toBe(false)
   })
+
+  it('allows at most 2 decimal places', () => {
+    expect(isBillInputAllowed('12.34')).toBe(true)
+    expect(isBillInputAllowed('12.345')).toBe(false)
+    expect(parseBill('12.345')).toBeNull()
+  })
 })
 
 describe('parseTipPercent', () => {
@@ -41,6 +47,12 @@ describe('parseTipPercent', () => {
   it('returns null for garbage', () => {
     expect(parseTipPercent('abc')).toBeNull()
     expect(parseTipPercent('-5')).toBeNull()
+  })
+
+  it('allows at most 2 decimal places', () => {
+    expect(isTipInputAllowed('15.55')).toBe(true)
+    expect(isTipInputAllowed('15.555')).toBe(false)
+    expect(parseTipPercent('15.555')).toBeNull()
   })
 })
 
