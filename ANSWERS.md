@@ -31,7 +31,7 @@ On viewports ≥768px, the layout uses a two-column grid: inputs on the left, re
 
 *Affects:* `src/App.css` `.layout` grid and `.results` sticky rules.
 
-**Design decision 2 — Custom tip slider**
+**Design decision 2 — Custom Tip slider**
 
 Custom tip input includes a synchronized slider so users can quickly explore different tip percentages while receiving immediate visual feedback on how the split changes. The slider and input stay synchronized to support both precision entry and quick adjustment.
 
