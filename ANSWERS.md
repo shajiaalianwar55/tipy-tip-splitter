@@ -71,11 +71,11 @@ Preset buttons (10% / 15% / 20%) use `min-height: 44px`, wrap on narrow screens,
 
 ## 5. Honest gap
 
-## 5. Honest gap
 
 **Gap:** The application currently relies on manual testing for interaction behaviour.
 
 **With another day:** I would add automated end-to-end tests covering keyboard navigation, validation messages, tip selection, reset behaviour, and mobile viewport interactions to reduce the risk of regressions in future changes.
+
 ---
 
 ## Rounding policy
