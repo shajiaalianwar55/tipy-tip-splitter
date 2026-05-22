@@ -16,17 +16,10 @@ npm run dev
 
 Open the URL shown in the terminal (usually `http://localhost:5173`).
 
-### Other commands
-
-```bash
-npm run build    # production build
-npm run preview  # serve the production build
-npm test         # run unit tests (calculation & validation)
-```
 
 ## Deployed demo
 
-_Not deployed yet._ To deploy: run `npm run build` and publish the `dist/` folder to Vercel, Netlify, or GitHub Pages.
+URL: https://tipy-tip-splitter.vercel.app/
 
 ## Project structure
 
