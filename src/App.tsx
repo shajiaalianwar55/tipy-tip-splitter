@@ -3,15 +3,18 @@ import { BillInput } from './components/BillInput'
 import { PeopleInput } from './components/PeopleInput'
 import { ResetButton } from './components/ResetButton'
 import { ResultsPanel } from './components/ResultsPanel'
+import { ThemeToggle } from './components/ThemeToggle'
 import { TipSelector } from './components/TipSelector'
 import {
   INITIAL_STATE,
   useTipCalculator,
   type CalculatorState,
 } from './hooks/useTipCalculator'
+import { useTheme } from './hooks/useTheme'
 import './App.css'
 
 function App() {
+  const { theme, toggle: toggleTheme } = useTheme()
   const [state, setState] = useState<CalculatorState>(INITIAL_STATE)
   const tipCustomRef = useRef<HTMLInputElement>(null)
   const peopleRef = useRef<HTMLInputElement>(null)
@@ -38,8 +41,11 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>Tipy</h1>
-        <p className="tagline">Split the bill fairly, to the cent.</p>
+        <div className="header__brand">
+          <h1>Tipy</h1>
+          <p className="tagline">Split the bill fairly, to the cent.</p>
+        </div>
+        <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>
 
       <main className="layout">

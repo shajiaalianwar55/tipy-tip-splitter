@@ -37,7 +37,7 @@ export function validateInputs(
 
   if (showTip) {
     if (raw.tip.trim() === '') {
-      errors.tip = 'Enter a tip percentage'
+      errors.tip = 'Enter or choose a tip percentage'
     } else if (
       parsed.tip === null ||
       raw.tip.trim().startsWith('-') ||
