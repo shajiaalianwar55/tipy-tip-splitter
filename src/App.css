@@ -225,6 +225,117 @@ body {
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 
+.tip-slider {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tip-slider__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.tip-slider__row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tip-slider__control {
+  --thumb-size: 18px;
+  --track-height: 6px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--thumb-size) / 2);
+}
+
+.tip-slider__input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: calc(100% + var(--thumb-size));
+  margin-left: calc(var(--thumb-size) / -2);
+  min-height: 44px;
+  height: var(--thumb-size);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.tip-slider__input:focus {
+  outline: none;
+}
+
+.tip-slider__input:focus-visible {
+  outline: none;
+}
+
+.tip-slider__input:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--focus-ring);
+}
+
+.tip-slider__input:focus-visible::-moz-range-thumb {
+  box-shadow: var(--focus-ring);
+}
+
+.tip-slider__input::-webkit-slider-runnable-track {
+  height: var(--track-height);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) var(--tip-fill, 0%),
+    var(--border) var(--tip-fill, 0%),
+    var(--border) 100%
+  );
+}
+
+.tip-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  margin-top: calc((var(--track-height) - var(--thumb-size)) / 2);
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tip-slider__input::-moz-range-track {
+  height: var(--track-height);
+  border-radius: 999px;
+  background: var(--border);
+  border: none;
+}
+
+.tip-slider__input::-moz-range-progress {
+  height: var(--track-height);
+  border-radius: 999px 0 0 999px;
+  background: var(--accent);
+}
+
+.tip-slider__input::-moz-range-thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-sizing: border-box;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tip-slider__value {
+  min-width: 3.25rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  text-align: right;
+}
+
 .actions {
   margin-top: 0.25rem;
 }

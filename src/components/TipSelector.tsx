@@ -1,5 +1,15 @@
-import { TIP_PRESETS, type TipPreset } from '../lib/types'
+import type { CSSProperties } from 'react'
+import { parseTipPercent } from '../lib/parse'
+import { MAX_TIP_PERCENT, TIP_PRESETS, type TipPreset } from '../lib/types'
 import { FieldError } from './FieldError'
+
+const SLIDER_STEP = 0.5
+
+function getSliderValue(customValue: string): number {
+  const parsed = parseTipPercent(customValue)
+  if (parsed === null) return 0
+  return Math.min(MAX_TIP_PERCENT, Math.max(0, parsed))
+}
 
 type TipSelectorProps = {
   customId: string
@@ -26,6 +36,10 @@ export function TipSelector({
   onBlur,
   onEnter,
 }: TipSelectorProps) {
+  const sliderId = `${customId}-slider`
+  const sliderValue = getSliderValue(customValue)
+  const describedBy = error ? `${errorId} ${sliderId}-value` : `${sliderId}-value`
+
   return (
     <div className="field">
       <span id="tip-label" className="field-label">
@@ -76,6 +90,39 @@ export function TipSelector({
         <span className="tip-suffix" aria-hidden="true">
           %
         </span>
+      </div>
+      <div className="tip-slider">
+        <label htmlFor={sliderId} className="tip-slider__label">
+          Slide to adjust
+        </label>
+        <div className="tip-slider__row">
+          <div
+            className="tip-slider__control"
+            style={
+              {
+                '--tip-fill': `${(sliderValue / MAX_TIP_PERCENT) * 100}%`,
+              } as CSSProperties
+            }
+          >
+            <input
+              id={sliderId}
+              className="tip-slider__input"
+              type="range"
+              min={0}
+              max={MAX_TIP_PERCENT}
+              step={SLIDER_STEP}
+              value={sliderValue}
+              aria-labelledby="tip-label"
+              aria-describedby={describedBy}
+              aria-invalid={error ? true : undefined}
+              onChange={(e) => onCustomChange(e.target.value)}
+              onBlur={onBlur}
+            />
+          </div>
+          <span id={`${sliderId}-value`} className="tip-slider__value" aria-live="polite">
+            {sliderValue}%
+          </span>
+        </div>
       </div>
       <FieldError id={errorId} message={error} />
     </div>
