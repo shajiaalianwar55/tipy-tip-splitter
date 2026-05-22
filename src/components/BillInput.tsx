@@ -1,3 +1,9 @@
+import {
+  formatBillAmount,
+  handleArrowKeyDown,
+} from '../lib/keyboardAdjust'
+import { parseBill } from '../lib/parse'
+import { MAX_BILL } from '../lib/types'
 import { FieldError } from './FieldError'
 
 type BillInputProps = {
@@ -38,6 +44,16 @@ export function BillInput({
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
         onKeyDown={(e) => {
+          handleArrowKeyDown(e, {
+            value,
+            parse: parseBill,
+            step: 1,
+            min: 0,
+            max: MAX_BILL,
+            emptyDefault: 1,
+            format: formatBillAmount,
+            onChange,
+          })
           if (e.key === 'Enter') {
             e.preventDefault()
             onEnter()

@@ -1,3 +1,9 @@
+import {
+  formatPeopleCount,
+  handleArrowKeyDown,
+} from '../lib/keyboardAdjust'
+import { parsePeople } from '../lib/parse'
+import { MAX_PEOPLE } from '../lib/types'
 import { FieldError } from './FieldError'
 
 type PeopleInputProps = {
@@ -41,6 +47,16 @@ export function PeopleInput({
           if (e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '-' || e.key === '+') {
             e.preventDefault()
           }
+          handleArrowKeyDown(e, {
+            value,
+            parse: parsePeople,
+            step: 1,
+            min: 1,
+            max: MAX_PEOPLE,
+            emptyDefault: 1,
+            format: formatPeopleCount,
+            onChange,
+          })
           if (e.key === 'Enter') {
             e.preventDefault()
             onEnter()

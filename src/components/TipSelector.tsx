@@ -1,4 +1,8 @@
 import type { CSSProperties } from 'react'
+import {
+  formatTipAmount,
+  handleArrowKeyDown,
+} from '../lib/keyboardAdjust'
 import { parseTipPercent } from '../lib/parse'
 import { MAX_TIP_PERCENT, TIP_PRESETS, type TipPreset } from '../lib/types'
 import { FieldError } from './FieldError'
@@ -81,6 +85,16 @@ export function TipSelector({
           onChange={(e) => onCustomChange(e.target.value)}
           onBlur={onBlur}
           onKeyDown={(e) => {
+            handleArrowKeyDown(e, {
+              value: customValue,
+              parse: parseTipPercent,
+              step: SLIDER_STEP,
+              min: 0,
+              max: MAX_TIP_PERCENT,
+              emptyDefault: SLIDER_STEP,
+              format: formatTipAmount,
+              onChange: onCustomChange,
+            })
             if (e.key === 'Enter') {
               e.preventDefault()
               onEnter()
