@@ -10,12 +10,13 @@ A single-screen tip calculator that updates live as you type. Built for the Fron
 ## Run locally
 
 ```bash
+git clone <your-repo-url>
+cd tipy
 npm install
 npm run dev
 ```
 
 Open the URL shown in the terminal (usually `http://localhost:5173`).
-
 
 ## Deployed demo
 
